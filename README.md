@@ -74,9 +74,24 @@ d) experimentar tipos de interfaces funcionais padrão - essas estão no pacote 
 Essas interfaces têm nomes padronizados e são amplamente utilizadas em conjunto com lambdas e a API de Streams. Aqui vão as principais:
 
 1. Predicate<T>
+
+A palavra "predicate" vem da lógica matemática e lógica de predicados.
+
+Na prática, um predicado é **uma função que testa se algo é verdadeiro ou falso**.
+
+Formalmente:
+
+`Predicate<T> é uma função: T → boolean`
+
+Ou seja, ela recebe um objeto do tipo T e devolve true ou false, conforme alguma condição lógica.
+
+Resumindo:
+
 - função: testa uma condição e retorna true ou false
 - método principal: boolean test(T t)
 - usos: filter() em streams, validações
+
+----
 
 2. Function<T, R>
 - função: transforma um tipo em outro
