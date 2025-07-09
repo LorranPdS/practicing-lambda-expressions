@@ -94,9 +94,32 @@ Resumindo:
 ----
 
 2. Function<T, R>
+
+A interface Function<T, R> faz parte do pacote `java.util.function` e representa uma função que recebe um argumento do tipo T e retorna um resultado do tipo R.
+
+O nome "Function" é curto, direto e consistente com a ideia que representa: uma função pura, que recebe um valor e retorna outro.
+
+É uma interface funcional genérica, pensada para representar qualquer transformação de um valor em outro.
+
+Esta é a assinatura da Function:
+
+`@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+`
+
 - função: transforma um tipo em outro
 - método principal: R apply(T t)
 - usos: map() em streams
+
+Ela é útil quando você precisa transformar um valor de um tipo em outro. Exemplos:
+
+- converter um objeto em outro tipo (ex: String → Integer)
+- mapear elementos em streams
+- aplicar funções genéricas de transformação
+
+----
 
 3. Consumer<T>
 - função: consome um valor e realiza uma ação (sem retorno)
