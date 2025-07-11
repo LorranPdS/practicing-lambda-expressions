@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PersonEntity {
+public class Pessoa {
 
-    private String name;
-    private Integer age;
+    private String nome;
+    private Integer idade;
 }

@@ -1,7 +1,7 @@
 package br.com.lorran.practicing_lambda_expressions.p1interfacefuncionalpadrao;
 
-import br.com.lorran.practicing_lambda_expressions.dto.PersonDTO;
-import br.com.lorran.practicing_lambda_expressions.entities.PersonEntity;
+import br.com.lorran.practicing_lambda_expressions.dto.PessoaDTO;
+import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -164,9 +164,9 @@ public class Exemplo2Function {
 
     @Test
     void exercicio14Function(){
-        Function<PersonEntity, PersonDTO> converter = p -> new PersonDTO(p.getName());
-        PersonEntity pessoa = new PersonEntity("Rosa Oliveira", 30);
-        PersonDTO dto = converter.apply(pessoa);
+        Function<Pessoa, PessoaDTO> converter = p -> new PessoaDTO(p.getNome());
+        Pessoa pessoa = new Pessoa("Rosa Oliveira", 30);
+        PessoaDTO dto = converter.apply(pessoa);
         System.out.println(dto.nomeCompleto); // Saída: Rosa Oliveira
     }
 
@@ -195,5 +195,40 @@ public class Exemplo2Function {
         System.out.println(maiusculos); // [ANA, JOÃO, BIA]
     }
 
-    // TODO: continuar do exercício 2, que é o exercício após esse
+    @Test
+    @DisplayName("map() com conversão de tipos de String para Integer")
+    void exercicio16Function(){
+        List<String> numeros = List.of("1", "2", "3");
+
+        List<Integer> inteiros = numeros.stream()
+                .map(Integer::parseInt) // Function<String, Integer>
+                .toList();
+
+        System.out.println(inteiros); // [1, 2, 3]
+    }
+
+    @Test
+    @DisplayName("flatMap() — transformar e 'achatar' - separar palavras de frases")
+    void exercicio17Function(){
+        List<String> frases = List.of("Olá mundo", "Java é legal");
+
+        List<String> palavras = frases.stream()
+                .flatMap(frase -> Arrays.stream(frase.split(" "))) // Function<String, Stream<String>>
+                .toList();
+
+        System.out.println(palavras); // [Olá, mundo, Java, é, legal]
+    }
+
+    @Test
+    @DisplayName("collect() com Collectors.mapping - transformar nomes e juntar com vírgula")
+    void exercicio18Function(){
+        String resultado = List.of("ana", "bia", "carlos").stream()
+                .collect(Collectors.mapping(String::toUpperCase, Collectors.joining(", ")));
+
+        System.out.println(resultado); // ANA, BIA, CARLOS
+    }
+
+    /**
+     * Seguem os exercícios envolvendo a classe {@link br.com.lorran.practicing_lambda_expressions.p3maps.ExemploMaps}
+     */
 }

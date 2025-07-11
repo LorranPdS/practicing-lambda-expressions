@@ -1,7 +1,7 @@
 package br.com.lorran.practicing_lambda_expressions.p1interfacefuncionalpadrao;
 
-import br.com.lorran.practicing_lambda_expressions.entities.AlunoEntity;
-import br.com.lorran.practicing_lambda_expressions.entities.PersonEntity;
+import br.com.lorran.practicing_lambda_expressions.entities.Aluno;
+import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,10 +62,10 @@ public class Exemplo1Predicate {
     @Test
     @DisplayName("Usando objetos para usar o Predicate - ver se pessoa é maior de idade")
     void exercicio3Predicate() {
-        PersonEntity maria = new PersonEntity("Maria", 25);
-        PersonEntity betania = new PersonEntity("Betânia", 17);
+        Pessoa maria = new Pessoa("Maria", 25);
+        Pessoa betania = new Pessoa("Betânia", 17);
 
-        Predicate<PersonEntity> ehMaiorDeIdadePredicate = i -> i.getAge() >= 18;
+        Predicate<Pessoa> ehMaiorDeIdadePredicate = i -> i.getIdade() >= 18;
 
         testarPredicate("É maior de idade", ehMaiorDeIdadePredicate, maria);
         testarPredicate("É maior de idade", ehMaiorDeIdadePredicate, betania);
@@ -74,21 +74,21 @@ public class Exemplo1Predicate {
     @Test
     @DisplayName("Usando objetos para usar o Predicate - filtragem de listas e usando filter")
     void exercicio4Predicate() {
-        List<PersonEntity> pessoas = List.of(
-                new PersonEntity("Joana", 17),
-                new PersonEntity("Mirela", 22),
-                new PersonEntity("Fabi", 15),
-                new PersonEntity("Ana", 30)
+        List<Pessoa> pessoas = List.of(
+                new Pessoa("Joana", 17),
+                new Pessoa("Mirela", 22),
+                new Pessoa("Fabi", 15),
+                new Pessoa("Ana", 30)
         );
 
-        Predicate<PersonEntity> maiorDeIdadePredicate = p -> p.getAge() >= 18;
+        Predicate<Pessoa> maiorDeIdadePredicate = p -> p.getIdade() >= 18;
 
-        List<PersonEntity> adultos = pessoas.stream()
+        List<Pessoa> adultos = pessoas.stream()
                 .filter(maiorDeIdadePredicate) // você consegue ver que o 'filter' usa um Predicate por parâmetro. Entre no 'filter' para ver
                 .toList();
 
         /*
-            List<PersonEntity> adultos = pessoas.stream()
+            List<Pessoa> adultos = pessoas.stream()
                 .filter(p -> p.getAge() >= 18) // você consegue ver que o 'filter' usa um Predicate por parâmetro. Entre no 'filter' para ver
                 .toList();
          */
@@ -186,7 +186,7 @@ public class Exemplo1Predicate {
     }
 
     /*
-        Vamos montar um exemplo completo usando Predicate<AlunoEntity> com uma
+        Vamos montar um exemplo completo usando Predicate<Aluno> com uma
         lógica mais realista — sem depender de String ou Integer diretamente.
         A ideia é verificar se o aluno:
         - tem média maior ou igual a 7.0
@@ -196,18 +196,18 @@ public class Exemplo1Predicate {
     @Test
     @DisplayName("Exemplo de predicate com mais de um método do objeto")
     void exercicio11Predicate() {
-        List<AlunoEntity> alunos = List.of(
-                new AlunoEntity("Ana", 8.5, 2),
-                new AlunoEntity("Bruno", 6.8, 3),
-                new AlunoEntity("Carla", 7.2, 6),
-                new AlunoEntity("Daniel", 9.0, 1),
-                new AlunoEntity("Eduarda", 7.5, 4)
+        List<Aluno> alunos = List.of(
+                new Aluno("Ana", 8.5, 2),
+                new Aluno("Bruno", 6.8, 3),
+                new Aluno("Carla", 7.2, 6),
+                new Aluno("Daniel", 9.0, 1),
+                new Aluno("Eduarda", 7.5, 4)
         );
 
         // Condição: aprovado se média >= 7 e faltas < 5
-        Predicate<AlunoEntity> aprovado = a -> a.getMedia() >= 7.0 && a.getFaltas() < 5;
+        Predicate<Aluno> aprovado = a -> a.getMedia() >= 7.0 && a.getFaltas() < 5;
 
-        List<AlunoEntity> aprovados = alunos.stream()
+        List<Aluno> aprovados = alunos.stream()
                 .filter(aprovado)
                 .toList();
 

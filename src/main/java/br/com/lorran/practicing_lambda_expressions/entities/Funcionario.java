@@ -7,10 +7,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class AlunoEntity {
+public class Funcionario {
 
     private String nome;
-    private Double media;
-    private Integer faltas;
-
+    private Integer idade;
 }

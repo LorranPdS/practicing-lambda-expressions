@@ -119,6 +119,17 @@ Ela é útil quando você precisa transformar um valor de um tipo em outro. Exem
 - mapear elementos em streams
 - aplicar funções genéricas de transformação
 
+Dica prática
+Sempre que o Stream estiver transformando elementos de um tipo para outro, você está lidando com uma Function.
+
+Você pode passar expressões lambda ou method references como:
+
+`
+x -> x.length()           // lambda
+String::length            // method reference
+Integer::parseInt         // conversor
+`
+
 ----
 
 3. Consumer<T>
