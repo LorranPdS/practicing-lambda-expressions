@@ -11,4 +11,10 @@ public class Funcionario {
 
     private String nome;
     private Integer idade;
+    private Double salario;
+
+    public void aumentar(double valor) {
+        this.salario += valor;
+    }
+
 }

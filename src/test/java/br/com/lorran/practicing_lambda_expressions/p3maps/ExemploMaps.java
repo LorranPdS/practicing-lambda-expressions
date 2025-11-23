@@ -197,9 +197,9 @@ public class ExemploMaps {
     @Test
     void exercicio6Map() {
         List<Funcionario> funcionarios = List.of(
-                new Funcionario("João", 25),
-                new Funcionario("Paula", 40),
-                new Funcionario("Marcos", 55)
+                new Funcionario("João", 25, 1200.0),
+                new Funcionario("Paula", 40, 1200.0),
+                new Funcionario("Marcos", 55, 1200.0)
         );
 
         Function<Funcionario, String> faixaEtaria = f -> {

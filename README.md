@@ -133,9 +133,22 @@ Integer::parseInt         // conversor
 ----
 
 3. Consumer<T>
+
+No Java, Consumer<T> é uma interface funcional (fica no pacote java.util.function) que recebe um valor do tipo T e não retorna nada.
+
+Pensa assim: é como uma função que consome um valor para fazer alguma ação com ele (exibir, salvar, atualizar, etc.), mas não devolve nada.
+
+A assinatura dela é:
+
 - função: consome um valor e realiza uma ação (sem retorno)
 - método principal: void accept(T t)
 - usos: forEach()
+
+O Consumer tem dois métodos principais:
+
+accept(T t) → é o que realmente executa a ação sobre o valor.
+
+andThen(Consumer<? super T> after) → serve para encadear dois (ou mais) Consumers, de modo que eles sejam aplicados em sequência sobre o mesmo valor.
 
 4. Supplier<T>
 - função: fornece um valor, sem receber nenhum argumento
