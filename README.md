@@ -150,7 +150,42 @@ accept(T t) → é o que realmente executa a ação sobre o valor.
 
 andThen(Consumer<? super T> after) → serve para encadear dois (ou mais) Consumers, de modo que eles sejam aplicados em sequência sobre o mesmo valor.
 
-4. Supplier<T>
-- função: fornece um valor, sem receber nenhum argumento
-- método principal: T get()
-- usos: gerar valores (UUIDs, datas, números aleatórios)
+## 4. Supplier<T>
+
+a) _O que é um Supplier_?
+   
+Supplier<T> é uma interface funcional do Java (em java.util.function) que:
+
+- não recebe nenhum argumento
+
+- retorna um valor do tipo T
+
+Ou seja:
+Supplier é um “fornecedor de valores”.
+Ele gera ou fornece algo quando chamado.
+
+A assinatura dele é:
+
+`
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+`
+
+Veja que você chama o método get() para pegar o valor fornecido.
+
+b) Quando usar um Supplier?
+
+Use um Supplier quando você quer:
+
+✔ adiar a criação de um objeto
+
+✔ gerar valores sob demanda
+
+✔ passar uma função que “fornece” algo
+
+✔ simular dados (random, timestamps etc.)
+
+✔ inicializar algo apenas quando necessário (lazy loading)
+
