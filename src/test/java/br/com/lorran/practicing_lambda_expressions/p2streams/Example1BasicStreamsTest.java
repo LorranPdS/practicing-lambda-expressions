@@ -1,5 +1,6 @@
 package br.com.lorran.practicing_lambda_expressions.p2streams;
 
+import br.com.lorran.practicing_lambda_expressions.entities.Funcionario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -190,9 +191,143 @@ public class Example1BasicStreamsTest {
     @Test
     void exercicio13StreamsCollectAndToList() {
         /*
-            SEGUIR DO SEGUINTE EXERCÍCIO:
-            8. collect() / toList()
-            ️ Exercício 12 – Filtrar pares e retornar lista
+            Dada a lista:
+            List<Integer> numeros = List.of(1, 4, 13, 15, 8, 10);
+
+
+            ️ Filtre números pares e retorne uma nova lista
+         */
+        List<Integer> numerosList = List.of(1, 4, 13, 15, 8, 10);
+
+        List<Integer> paresList = numerosList.stream()
+                .filter(n -> n % 2 == 0)
+                .toList(); // ou .collect(Collectors.toList())
+
+        System.out.println(paresList);
+    }
+
+    @Test
+    void exercicio14StreamsReduceSomandoIntegers() {
+        // Explicando o que é o reduce: https://www.baeldung.com/java-stream-reduce
+
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(2, 1, 3, 4, 5, 6); // total = 21
+
+            ️ Some todos os números da lista
+         */
+
+        List<Integer> numerosList = List.of(2, 1, 3, 4, 5, 6);
+//        int result = numerosList.stream().reduce(0, (subtotal, element) -> subtotal + element);
+//        var somaUmValorSoh = numerosList.stream().reduce(0, (acumulador, proximoValor) -> acumulador + proximoValor); // outra forma de explicação
+
+        int result = numerosList.stream().reduce(0, Integer::sum);
+//        assertThat(result).isEqualTo(21);
+        System.out.println(result);
+        /*
+            O que aconteceu basicamente foi o seguinte:
+            int result = numerosList.stream().reduce(0, (subtotal, element) -> subtotal + element);
+
+            - reduce (0 >>> o valor começa valendo zero
+            - subtotal >>> iniciará valendo o valor exibido na identity, que no caso foi zero
+            - element >>> será o primeiro elemento da lista, que na nossa lista é o número 2
+            - subtotal + element >>> lógica a ser feita, que no caso foi somar subtotal (0) com element (2)
+            - próximo >>> subtotal = 2 / element = 1 (é o próximo da lista) / resultado 3
+            - próximo >>> subtotal = 3 / element 3 (é o próximo da lista) / resultado 6
+            - próximo >>> subtotal = 6 / element 4 (é o próximo da lista) / resultado 10
+            - próximo >>> subtotal = 10 / element 5 (é o próximo da lista) / resultado 15
+            - próximo >>> subtotal = 15 / element 6 (é o próximo da lista) / resultado 21
+
+            PORTANTO, o que o reduce() faz é o seguinte:
+                Combina todos os elementos de um stream em um único resultado, usando uma função de acumulação fornecida
+                pelo desenvolvedor para definir como essa junção acontece
          */
     }
+
+    @Test
+    void exercicio15StreamsReduceConcatenandoStrings() {
+        /*
+            Dada a lista:
+            List<String> palavras = List.of("Olá", " ", "Mundo", "!");
+
+            Concatene toda a frase
+         */
+
+        List<String> palavras = List.of("Olá", " ", "Mundo", "!");
+//        var frase = palavras.stream().reduce("", (palavraInicial, proximaPalavra) -> palavraInicial + proximaPalavra);
+        var frase = palavras.stream().reduce("", String::concat);
+        System.out.println(frase);
+    }
+
+    @Test
+    void exercicio16StreamsReduceEncontreOMaiorNumero() {
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12); // maior = 71
+
+            Encontre o maior número
+         */
+        List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+
+        int maiorNumero = numerosList.stream().reduce(0, Integer::max);
+
+        System.out.println(maiorNumero);
+        /*
+            IMPORTANTE:
+            int maiorNumero = numerosList.stream().reduce(0, Integer::max);
+            - veja que iniciei o valor com zero, então se não houver conteúdo na lista, ele irá me retornar zero
+
+            Mas e se eu quiser que estoure uma exceção caso a lista não tenha valor?
+            Então uso a propriedade do Optional para lançar exceção, o que dependendo do plano de negócio seria o mais correto:
+
+            int maiorNumero = numerosList.stream().
+                reduce(Integer::max).orElseThrow(() -> new NoSuchElementException("Não há elementos na lista"));
+         */
+    }
+
+    @Test
+    void exercicio17StreamsReduceUsandoObjetosSomaIdades() {
+        /*
+            Dada a lista:
+            List<Funcionario> funcionarios = List.of(
+                                            new Funcionario("John", 30, 2500.0),
+                                            new Funcionario("Michael", 26, 3000.0));
+
+            Some a idade dos funcionários
+         */
+
+        List<Funcionario> funcionarios = List.of(
+                                            new Funcionario("John", 30, 2500.0),
+                                            new Funcionario("Michael", 26, 3000.0));
+        /*
+        int somaIdadeFuncionarios = funcionarios.stream().reduce
+                (0, (idadeInicial, idadeFinal) -> idadeInicial + idadeFinal.getIdade()); // ele não compila porque os tipos dos argumentos do acumulador são int e Funcionario.
+
+                Isso é explicado no link https://www.baeldung.com/java-stream-reduce no trecho "Curiosamente, este código não compila"
+         */
+        int somaIdadeFuncionarios = funcionarios.stream().reduce
+                (0, (idadeInicial, idadeFinal) -> idadeInicial + idadeFinal.getIdade(), Integer::sum);
+    }
+
+    @Test
+    void exercicio18StreamsReduceUsandoObjetosSomaSalarios() {
+        /*
+            Dada a lista:
+            List<Funcionario> funcionarios = List.of(
+                                            new Funcionario("John", 30, 2500.0),
+                                            new Funcionario("Michael", 26, 3000.0));
+
+            Some o salário dos funcionários
+         */
+
+        List<Funcionario> funcionarios = List.of(
+                new Funcionario("John", 30, 2500.0),
+                new Funcionario("Michael", 26, 3000.0));
+
+//        double somaSalarioFuncionarios = funcionarios.stream().map(Funcionario::getSalario).reduce(0.0, (valorAcumulado, proximoValor) -> valorAcumulado + proximoValor);
+        double somaSalarioFuncionarios = funcionarios.stream().map(Funcionario::getSalario).reduce(0.0, Double::sum);
+        System.out.println(somaSalarioFuncionarios);
+    }
+
+    // PRÓXIMO EXERCÍCIO: 10. anyMatch, allMatch, noneMatch
 }
