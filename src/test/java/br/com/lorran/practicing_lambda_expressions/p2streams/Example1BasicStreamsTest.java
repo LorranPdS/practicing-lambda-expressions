@@ -7,6 +7,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class Example1BasicStreamsTest {
@@ -207,7 +209,7 @@ public class Example1BasicStreamsTest {
     }
 
     @Test
-    void exercicio14StreamsReduceSomandoIntegers() {
+    void exercicio14StreamsSomandoIntegers() {
         // Explicando o que é o reduce: https://www.baeldung.com/java-stream-reduce
 
         /*
@@ -245,7 +247,7 @@ public class Example1BasicStreamsTest {
     }
 
     @Test
-    void exercicio15StreamsReduceConcatenandoStrings() {
+    void exercicio15StreamsConcatenandoStrings() {
         /*
             Dada a lista:
             List<String> palavras = List.of("Olá", " ", "Mundo", "!");
@@ -260,7 +262,7 @@ public class Example1BasicStreamsTest {
     }
 
     @Test
-    void exercicio16StreamsReduceEncontreOMaiorNumero() {
+    void exercicio16StreamsEncontreOMaiorNumero() {
         /*
             Dada a lista:
             List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12); // maior = 71
@@ -286,7 +288,7 @@ public class Example1BasicStreamsTest {
     }
 
     @Test
-    void exercicio17StreamsReduceUsandoObjetosSomaIdades() {
+    void exercicio17StreamsUsandoObjetosSomaIdades() {
         /*
             Dada a lista:
             List<Funcionario> funcionarios = List.of(
@@ -310,7 +312,7 @@ public class Example1BasicStreamsTest {
     }
 
     @Test
-    void exercicio18StreamsReduceUsandoObjetosSomaSalarios() {
+    void exercicio18StreamsUsandoObjetosSomaSalarios() {
         /*
             Dada a lista:
             List<Funcionario> funcionarios = List.of(
@@ -329,5 +331,123 @@ public class Example1BasicStreamsTest {
         System.out.println(somaSalarioFuncionarios);
     }
 
-    // PRÓXIMO EXERCÍCIO: 10. anyMatch, allMatch, noneMatch
+    @Test
+    void exercicio19StreamsVerificarSeTodosOsNumerosSaoPositivos() {
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+
+            Verifique se todos os números são positivos
+         */
+        List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+        boolean isPositivo = numerosList.stream().allMatch(numero -> numero > 0);
+        System.out.println("Todos os números da lista são positivos? " + isPositivo);
+    }
+
+    @Test
+    void exercicio20StreamsVerificarSeExisteAlgumNumeroMaiorQue50() {
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+
+            Verifique se há algum número maior que 50 na lista
+         */
+        List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+        boolean hasMaiorQue50 = numerosList.stream().anyMatch(numero -> numero > 50);
+        System.out.println("Há número maior que 50 na lista? " + hasMaiorQue50);
+    }
+
+    @Test
+    void exercicio21StreamsVerificarSeNenhumFuncionarioRecebeMenosQue2500() {
+        /*
+            Dada a lista:
+            List<Funcionario> funcionariosList = List.of(
+                                                new Funcionario("Ana", 28, 3000.0),
+                                                new Funcionario("Bruno", 35, 4500.0),
+                                                new Funcionario("Carla", 22, 2800.0));
+
+
+            Verifique se nenhum funcionário da lista recebe salário menor que 2.500
+            RESPOSTA: true
+         */
+        List<Funcionario> funcionariosList = List.of(
+                new Funcionario("Ana", 28, 3000.0),
+                new Funcionario("Bruno", 35, 4500.0),
+                new Funcionario("Carla", 22, 2800.0));
+
+        boolean salarioMenorQue2500 = funcionariosList
+                .stream()
+                .noneMatch(funcionario -> funcionario.getSalario() < 2500);
+
+        System.out.println("Nenhum funcionário recebe menos que 2500? " + salarioMenorQue2500);
+        /*
+            Ou seja, queremos responder à pergunta:
+            “Existe alguém com salário abaixo de 2.500?”
+                Se a resposta for não, então o noneMatch deve retornar true.
+
+             Dica mental: noneMatch(condição) = !anyMatch(condição)
+             EXEMPLO:
+             boolean nenhumSalarioBaixo = !funcionarios.stream().anyMatch(f -> f.getSalario() < 2500);
+         */
+    }
+
+    @Test
+    void exercicio22StreamsObterPrimeiroNumeroMaiorQue10() {
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+
+            Obtenha o primeiro número maior que 10
+            RESPOSTA: 32
+         */
+        List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+        Integer primeiroNumeroMaiorQue10 = numerosList.stream()
+                .filter(numero -> numero > 10)
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Não há número maior que 10 na lista"));
+
+        System.out.println("Primeiro número maior que 10: " + primeiroNumeroMaiorQue10);
+    }
+
+    @Test
+    void exercicio23StreamsObterFuncionarioComSalarioMaiorQue4000() {
+        /*
+            Dada a lista:
+            List<Funcionario> funcionariosList = List.of(
+                                new Funcionario("Ana", 28, 3000.0),
+                                new Funcionario("Bruno", 35, 4500.0),
+                                new Funcionario("Carla", 22, 2800.0),
+                                new Funcionario("Daniel", 40, 6000.0));
+
+
+            Encontre qualquer funcionário que tenha salário maior que 4.000.
+         */
+        List<Funcionario> funcionariosList = List.of(
+                new Funcionario("Ana", 28, 3000.0),
+                new Funcionario("Bruno", 35, 4500.0),
+                new Funcionario("Carla", 22, 2800.0),
+                new Funcionario("Daniel", 40, 6000.0));
+
+        Funcionario salarioMaiorQue4000 = funcionariosList
+                .stream()
+                .filter(funcionario -> funcionario.getSalario() > 4000)
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException("Não temos funcionários com valor maior que 4000"));
+
+        System.out.println("Funcionário encontrado com valor maior que 4000: " + salarioMaiorQue4000);
+    }
+
+    @Test
+    void exercicio24StreamsPreencherComOlaAntesDeCadaNome() {
+        /*
+            Dada a lista:
+            List<Integer> numerosList = List.of(8, 1, 32, 71, 5, 12);
+
+            Obtenha o primeiro número maior que 10
+            RESPOSTA: 32
+         */
+        List<String> nomesList = List.of("Marcio", "Lorran", "Juvenal");
+        nomesList.forEach(nome -> System.out.println("Olá " + nome));
+    }
+
 }
