@@ -229,6 +229,6 @@ public class Exemplo2Function {
     }
 
     /**
-     * Seguem os exercícios envolvendo a classe {@link br.com.lorran.practicing_lambda_expressions.p3maps.ExemploMaps}
+     * Seguem os exercícios envolvendo a classe {@link br.com.lorran.practicing_lambda_expressions.p2maps.ExemploMaps}
      */
 }

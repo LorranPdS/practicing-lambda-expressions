@@ -1,4 +1,4 @@
-package br.com.lorran.practicing_lambda_expressions.p3maps;
+package br.com.lorran.practicing_lambda_expressions.p2maps;
 
 import br.com.lorran.practicing_lambda_expressions.dto.ProdutoDTO;
 import br.com.lorran.practicing_lambda_expressions.entities.Funcionario;

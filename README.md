@@ -189,3 +189,6 @@ Use um Supplier quando você quer:
 
 ✔ inicializar algo apenas quando necessário (lazy loading)
 
+MAIS EXPLICAÇÕES E DETALHES?
+
+https://www.notion.so/lorranpsantos/Lambda-expressions-2250bc50a9a68057919ecbffe53833df
