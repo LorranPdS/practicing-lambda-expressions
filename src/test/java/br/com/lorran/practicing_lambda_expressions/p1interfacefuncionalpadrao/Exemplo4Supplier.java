@@ -2,8 +2,6 @@ package br.com.lorran.practicing_lambda_expressions.p1interfacefuncionalpadrao;
 
 import br.com.lorran.practicing_lambda_expressions.entities.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 // LEMBRANDO QUE A TEORIA ESTÁ DESCRITA NO README.md
-@ExtendWith(MockitoExtension.class)
 public class Exemplo4Supplier {
 
     @Test
@@ -329,7 +326,7 @@ public class Exemplo4Supplier {
 
                 double total = base - desconto + altaTemporada;
 
-                Hospede h = new Hospede("Cliente", dias);
+                Hospede h = new Hospede("Cliente", dias, "000.000.000-00");
                 System.out.println("Total a pagar: " + total);
 
                 return h;

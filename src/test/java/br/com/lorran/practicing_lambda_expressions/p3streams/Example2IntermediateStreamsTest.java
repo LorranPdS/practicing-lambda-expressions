@@ -5,8 +5,6 @@ import br.com.lorran.practicing_lambda_expressions.entities.Pedido;
 import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import br.com.lorran.practicing_lambda_expressions.entities.Produto;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@ExtendWith(MockitoExtension.class)
 public class Example2IntermediateStreamsTest {
 
     @Test

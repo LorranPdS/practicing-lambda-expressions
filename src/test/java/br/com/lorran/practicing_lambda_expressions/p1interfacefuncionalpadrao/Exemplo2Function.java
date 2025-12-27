@@ -4,8 +4,6 @@ import br.com.lorran.practicing_lambda_expressions.dto.PessoaDTO;
 import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -16,7 +14,6 @@ import java.util.stream.Collectors;
 /*
     Temos o método `apply` como principal método da Function
  */
-@ExtendWith(MockitoExtension.class)
 public class Exemplo2Function {
 
     @Test

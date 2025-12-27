@@ -2,15 +2,12 @@ package br.com.lorran.practicing_lambda_expressions.p1interfacefuncionalpadrao;
 
 import br.com.lorran.practicing_lambda_expressions.entities.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-@ExtendWith(MockitoExtension.class)
 public class Exemplo3Consumer {
 
     @Test
@@ -194,8 +191,8 @@ public class Exemplo3Consumer {
          */
 
         List<Hospede> hospedes = Arrays.asList(
-                new Hospede("Carlos", 3),
-                new Hospede("Fernanda", 10)
+                new Hospede("Carlos", 3, "000.000.000-00"),
+                new Hospede("Fernanda", 10, "000.000.000-00")
         );
 
         Consumer<Hospede> analisar = h -> {

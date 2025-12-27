@@ -4,14 +4,11 @@ import br.com.lorran.practicing_lambda_expressions.entities.Aluno;
 import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@ExtendWith(MockitoExtension.class)
 public class Exemplo1Predicate {
 
     /*

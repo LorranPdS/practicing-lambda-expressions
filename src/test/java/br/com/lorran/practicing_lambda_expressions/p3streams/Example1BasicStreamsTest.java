@@ -2,14 +2,11 @@ package br.com.lorran.practicing_lambda_expressions.p3streams;
 
 import br.com.lorran.practicing_lambda_expressions.entities.Funcionario;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@ExtendWith(MockitoExtension.class)
 public class Example1BasicStreamsTest {
 
     @Test
