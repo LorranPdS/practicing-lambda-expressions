@@ -11,4 +11,8 @@ public class Produto {
 
     private String nome;
     private Double preco;
+
+    public void precoComImposto(double imposto){
+        this.preco = this.getPreco() + this.getPreco() * imposto;
+    }
 }

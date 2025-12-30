@@ -11,7 +11,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class ExampleUsingEveryFuncionalInterfacesTest {
+public class ExampleUsingEveryFunctionalInterfacesTest {
 
     @Test // Predicate e Function
     void exercicio1ImprimirNomeDeFuncionariosSeparadosPorVirgulaComIdadeAcimaDe30(){
@@ -133,5 +133,4 @@ public class ExampleUsingEveryFuncionalInterfacesTest {
             formato correto em suas APIs.
          */
     }
-
 }
