@@ -1,6 +1,7 @@
 package br.com.lorran.practicing_lambda_expressions.p4exgeralinterfacesfuncionais;
 
 import br.com.lorran.practicing_lambda_expressions.entities.Funcionario;
+import br.com.lorran.practicing_lambda_expressions.entities.ItemPedido;
 import br.com.lorran.practicing_lambda_expressions.entities.Pessoa;
 import br.com.lorran.practicing_lambda_expressions.entities.Produto;
 import org.junit.jupiter.api.Test;
@@ -123,5 +124,120 @@ public class Example1UsingBiFunctionsTest {
 
         System.out.println();
         produtoList.forEach(System.out::println);
+    }
+
+    // --------------------------------------Uso de BiFunctions em Streams ---------------------------------------------
+
+    /*
+        Regra mental antes de começar o exercício
+        Sempre que pensar em BiFunction + Stream, leia assim:
+        - “Para cada elemento do stream, vou combinar o elemento atual com mais uma informação externa.”
+     */
+
+    @Test
+    void exercicio9BiFunctionAndStreamsAplicarTaxaFixaDe10ReaisEmCadaUm(){
+        // Você tem valores de pedidos e quer aplicar taxa fixa de R$ 10 em cada um.
+        List<Double> valores = List.of(100.0, 200.0, 50.0);
+
+//        BiFunction<Double, Double, Double> aplicacaoTaxaFixa = (valor, taxa) -> Double.sum(valor, taxa);
+        BiFunction<Double, Double, Double> aplicacaoTaxaFixaBiFunction = Double::sum;
+
+//        List<Double> valoresComTaxa = valores.stream().map(v -> Double.sum(v, 10.0)).toList(); // SEM USAR BiFunction
+        List<Double> valoresComTaxa = valores.stream().map(v -> aplicacaoTaxaFixaBiFunction.apply(v, 10.0)).toList();
+
+        System.out.println(valoresComTaxa);
+    }
+
+    @Test
+    void exercicio10BiFunctionAndStreamsAplicarDescontoPercentualNosProdutos(){
+        // Aplicar desconto percentual nos produtos
+
+        List<Produto> produtos = List.of(
+                new Produto("Mouse", 100.0),
+                new Produto("Teclado", 200.0),
+                new Produto("Monitor", 1000.0)
+        );
+
+        BiFunction<Produto, Double, Double> produtosDescontadosBiFunction =
+                (produto, percentual) -> produto.getPreco() * (1 - percentual);
+
+        List<Double> precosDescontados = produtos.stream()
+                .map(p -> produtosDescontadosBiFunction.apply(p, 0.1))
+                .toList();
+
+        System.out.println(precosDescontados);
+        // Acredito eu que se eu tivesse colocado métodos 'set' em Produto, eu poderia criar um metodo e atualizando o campo de 'preco'
+    }
+
+    @Test
+    void exercicio11BiFunctionAndStreamsCriaObjetoPessoaComNomesDeListaEmString() {
+        // Criar objeto 'Pessoa' a partir de dados do Stream - Você recebe dados “crus” e transforma em objeto.
+        List<String> nomes = List.of("João", "Maria", "Pedro");
+
+        BiFunction<String, Integer, Pessoa> criarPessoaBiFunction = Pessoa::new;
+
+//        List<Pessoa> novasPessoasList = nomes.stream().map(nome -> new Pessoa(nome, 30)).toList(); // Sem BiFunction
+        List<Pessoa> novasPessoasList = nomes.stream().map(nome -> criarPessoaBiFunction.apply(nome, 30)).toList();
+        System.out.println(novasPessoasList);
+    }
+
+    @Test
+    void exercicio12BiFunctionAndStreamsPrecoTotalComQuantidadeInformada() {
+        // Calcular preço total dos itens de acordo com uma quantidade informada
+
+        List<ItemPedido> itens = List.of(
+                new ItemPedido("Caneta", 2.0),
+                new ItemPedido("Caderno", 20.0)
+        );
+
+        BiFunction<ItemPedido, Integer, Double> valorTotalComQuantidade =
+                (item, quantidade) -> item.getPreco() * quantidade;
+
+        List<Double> valoresComTotal = itens.stream().map(p -> valorTotalComQuantidade.apply(p, 3)).toList();
+        System.out.println(valoresComTotal);
+    }
+
+    @Test
+    void exercicio13BiFunctionAndStreamsValorTotalSomando5() {
+        // Você quer somar preços, mas sempre adicionar R$ 5 a cada soma parcial.
+        List<Double> valores = List.of(100.0, 200.0, 50.0);
+
+        BiFunction<Double, Double, Double> somarComBonus = (a, b) -> a + b + 5;
+
+        /*
+            USANDO LAMBDA EXPRESSIONS
+            double total = valores.stream().reduce(0.0, (acumulado, atual) ->
+                        somarComBonus.apply(acumulado, atual));
+         */
+        double total = valores.stream()
+                .reduce(0.0, somarComBonus::apply);
+
+        System.out.println(total);
+    }
+
+    @Test
+    void exercicio14BiFunctionAndStreams() {
+        // Verificar qual é o funcionário mais bem pago usando reduce
+
+        List<Funcionario> funcionarios = List.of(
+                new Funcionario("Jonata", 28, 2300.0),
+                new Funcionario("Maria", 24, 2100.0),
+                new Funcionario("Julia", 29, 2400.0));
+
+        BiFunction<Funcionario, Funcionario, Funcionario> maiorSalario =
+                (f1, f2) -> f1.getSalario() > f2.getSalario() ? f1 : f2;
+
+        /*
+            USANDO LAMBDA
+            Funcionario melhorPago = funcionarios.stream()
+                .reduce((f1, f2) -> maiorSalario.apply(f1, f2))
+                .orElseThrow();
+         */
+
+        Funcionario melhorPago = funcionarios.stream()
+                .reduce(maiorSalario::apply)
+                .orElseThrow();
+
+        System.out.println(melhorPago);
     }
 }
